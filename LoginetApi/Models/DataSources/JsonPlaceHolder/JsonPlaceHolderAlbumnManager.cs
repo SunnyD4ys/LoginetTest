@@ -26,6 +26,18 @@ namespace LoginetApi.Models.DataSources.JsonPlaceHolder
         }
 
         private Repository<int, Album> albums;
+        protected Repository<int, Album> Albums
+        {
+            get
+            {
+                if (albums == null)
+                    albums = new Repository<int, Album>();
+                return albums;
+            }
+        }
+        public int CacheTimeMinutes = 2;
+        private bool dataDownloaded = false;
+
 
         public JsonPlaceHolderAlbumManager()
         {
@@ -36,12 +48,25 @@ namespace LoginetApi.Models.DataSources.JsonPlaceHolder
 
         public Album GetAlbum(int albumId)
         {
-            return JsonHelper<Album>.GetJsonResponse(string.Format("{0}/{1}/{2}", Url, Route, albumId));
+            var entry = Albums.GetEntry(albumId);
+            if (entry != null && DateTime.Now.Subtract(entry.AdditionDate).TotalMinutes <= CacheTimeMinutes)
+                   return entry.Value;  
+            Album result =  JsonHelper<Album>.GetJsonResponse(string.Format("{0}/{1}/{2}", Url, Route, albumId));
+            if (result != null)
+                Albums.Add(result);
+            return result;
         }
 
         public IEnumerable<Album> GetAlbums()
         {
-            return JsonHelper<List<Album>>.GetJsonResponse(string.Format("{0}/{1}", Url, Route));
+            if (DateTime.Now.Subtract(Albums.LastUpdateDate).TotalMinutes <= CacheTimeMinutes && Albums.Count > 0 && dataDownloaded)
+                return Albums.GetValues();
+
+            var result =  JsonHelper<List<Album>>.GetJsonResponse(string.Format("{0}/{1}", Url, Route));
+            Albums.Add(result);
+            dataDownloaded = true;
+
+            return result;
         }
     }
 }

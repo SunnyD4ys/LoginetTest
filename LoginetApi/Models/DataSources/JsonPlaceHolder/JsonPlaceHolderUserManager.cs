@@ -22,34 +22,49 @@ namespace LoginetApi.Models.DataSources.JsonPlaceHolder
             get { return route; }
         }
 
-        public int UpdateCacheIntervalMinutes { get; set; }
+        public int CacheTimeMinutes = 2;
+        private bool dataDownloaded = false;
+
 
         private Repository<int, User> users;
+        protected Repository<int, User> Users
+        {
+            get
+            {
+                if (users == null)
+                    users = new Repository<int, User>();
+                return users;
+            }
+        }
 
         public JsonPlaceHolderUserManager()
         {
             route = "users";
             url = "http://jsonplaceholder.typicode.com"; // add to config
             users = new Repository<int, User>();
-            UpdateCacheIntervalMinutes = 10;
         }
 
         public User GetUser(int userId)
         {
-            User result = null;
-            if (users.LastUpdate.Subtract(DateTime.Now).Minutes >= UpdateCacheIntervalMinutes || users[userId] == default(User))
-            {
-                result = JsonHelper<User>.GetJsonResponse(string.Format("{0}/{1}/{2}", Url, Route, userId));
-                users.Add(result);
-                return result;
-            }
-            else
-                return users[userId];
+            var entry = Users.GetEntry(userId);
+            if (entry != null && DateTime.Now.Subtract(entry.AdditionDate).TotalMinutes <= CacheTimeMinutes)
+                return entry.Value;
+            User result = JsonHelper<User>.GetJsonResponse(string.Format("{0}/{1}/{2}", Url, Route, userId));
+            if (result != null)
+                Users.Add(result);
+            return result;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            return JsonHelper<List<User>>.GetJsonResponse(string.Format("{0}/{1}", Url, Route));
+            if (DateTime.Now.Subtract(Users.LastUpdateDate).TotalMinutes <= CacheTimeMinutes && Users.Count > 0 && dataDownloaded)
+                return Users.GetValues();
+
+            var result = JsonHelper<List<User>>.GetJsonResponse(string.Format("{0}/{1}", Url, Route));
+            dataDownloaded = true;
+            Users.Add(result);
+
+            return result;
         }
     }
 }
