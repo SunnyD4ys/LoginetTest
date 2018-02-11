@@ -1,0 +1,17 @@
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\LoginetApi.dll.config
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\LoginetApi.dll
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\LoginetApi.pdb
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\Newtonsoft.Json.dll
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\System.Net.Http.Formatting.dll
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\System.Web.Http.dll
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\System.Web.Http.WebHost.dll
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\Newtonsoft.Json.xml
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\System.Net.Http.Formatting.xml
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\System.Web.Http.xml
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\bin\System.Web.Http.WebHost.xml
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\obj\Debug\LoginetApi.csproj.CoreCompileInputs.cache
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\obj\Debug\LoginetApi.dll
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\obj\Debug\LoginetApi.pdb
+C:\Users\Sunny\source\repos\LoginetApi\LoginetApi\obj\Debug\LoginetApi.csprojResolveAssemblyReference.cache
