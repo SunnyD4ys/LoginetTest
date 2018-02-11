@@ -7,7 +7,7 @@ using LoginetApi.Models.Interfaces;
 using System.IO;
 using LoginetApi.Models.Common;
 using LoginetApi.Models.DTO;
-
+using System.Configuration;
 
 namespace LoginetApi.Models.DataSources.JsonPlaceHolder
 {
@@ -35,14 +35,14 @@ namespace LoginetApi.Models.DataSources.JsonPlaceHolder
                 return albums;
             }
         }
-        public int CacheTimeMinutes = 2;
+        public int CacheTimeMinutes = int.Parse(ConfigurationManager.AppSettings["cacheMinutes"]);
         private bool dataDownloaded = false;
 
 
         public JsonPlaceHolderAlbumManager()
         {
-            route = "albums";
-            url = "http://jsonplaceholder.typicode.com";
+            route = ConfigurationManager.AppSettings["albumRoute"];
+            url = ConfigurationManager.AppSettings["JsonPlaceHolderSource"];
             albums = new Repository<int,Album>();
         }
 

@@ -12,7 +12,7 @@ namespace LoginetApi.Models.Filters
         {
             WebApiApplication.Container.Logger.Log(actionExecutedContext.Exception.Message);
             actionExecutedContext.ActionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
-
+            actionExecutedContext.ActionContext.Response.Content = new StringContent("Error has occured");
         }
     }
 }
